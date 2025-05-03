@@ -24,3 +24,7 @@ app.use("/books", booksRouter);
 app.get("/", (req, res) => {
   res.redirect("/books");
 });
+
+app.listen(PORT, () => {
+  console.log(`Server running on port: ${PORT}`);
+});

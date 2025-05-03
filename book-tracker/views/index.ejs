@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Book Tracker</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <h1>My Book List</h1>
+    <a href="/books/add">+ Add a new book</a>
+    <ul>
+      <% if (books.length === 0) { %>
+      <li>No books found.</li>
+      <% } else { %> <% books.forEach(book => { %>
+      <li>
+        <img src="<%= book.cover_url %>" alt="cover" width="50" />
+        <strong><%= book.title %></strong> by <%= book.author %><br />
+        Rating: <%= book.rating %> | Read: <%= book.date_read %><br />
+        Review: <%= book.review %>
+      </li>
+      <% }); %> <% } %>
+    </ul>
+  </body>
+</html>
