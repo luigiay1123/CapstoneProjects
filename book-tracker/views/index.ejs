@@ -14,12 +14,39 @@
       <li>No books found.</li>
       <% } else { %> <% books.forEach(book => { %>
       <li>
-        <img src="<%= book.cover_url %>" alt="cover" width="50" />
-        <strong><%= book.title %></strong> by <%= book.author %><br />
-        Rating: <%= book.rating %> | <% const options = { weekday: 'short',
-        year: 'numeric', month: 'short', day: 'numeric' }; %> Read: <%= new
-        Date(book.date_read).toLocaleDateString('en-US', options) %> <br />
-        Review: <%= book.review %>
+        <div>
+          <h3><%= book.title %></h3>
+          <p>Author: <%= book.author %></p>
+          <p>Rating: <%= book.rating %> ★</p>
+          <p>
+            Read:<% const options = { weekday: 'short', year: 'numeric', month:
+            'short', day: 'numeric' }; %> Read: <%= new
+            Date(book.date_read).toLocaleDateString('en-US', options) %>
+          </p>
+          <p>Review: <%= book.review %></p>
+
+          <% if (book.cover_url) { %>
+          <img src="<%= book.cover_url %>" alt="cover" height="200" />
+          <% } %>
+
+          <form
+            method="GET"
+            action="/books/<%= book.id %>/edit"
+            style="display: inline"
+          >
+            <button type="submit">Edit</button>
+          </form>
+
+          <form
+            method="POST"
+            action="/books/<%= book.id %>/delete"
+            style="display: inline"
+          >
+            <button type="submit" onclick="return confirm('Are you sure?')">
+              Delete
+            </button>
+          </form>
+        </div>
       </li>
       <% }); %> <% } %>
     </ul>

@@ -74,4 +74,52 @@ router.post("/add", async (req, res) => {
   }
 });
 
+// GET /books/:id/edit - show edit form
+router.get("/:id/edit", async (req, res) => {
+  const { id } = req.params;
+  console.log(req.params);
+
+  try {
+    const result = await pool.query("SELECT * FROM books where id = $1", [id]);
+    const book = result.rows[0];
+
+    if (!book) return res.status(404).send("Book not found");
+    res.render("edit", { book });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error loading book.");
+  }
+});
+
+//POST /books/:id/edit - update book
+router.post("/:id/edit", async (req, res) => {
+  const { id } = req.params;
+  const { title, author, review, rating, date_read } = req.body;
+
+  try {
+    await pool.query(
+      `UPDATE books SET title=$1, author=$2, review=$3, rating=$4, date_read=$5 WHERE id=$6`,
+      [title, author, review, rating, date_read, id]
+    );
+
+    res.redirect("/books");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error updating book.");
+  }
+});
+
+//POST /books/:id/delete - delete book
+router.post("/:id/delete", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await pool.query("DELETE FROM books WHERE id=$1", [id]);
+    res.redirect("/books");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error deleting book.");
+  }
+});
+
 export default router;
