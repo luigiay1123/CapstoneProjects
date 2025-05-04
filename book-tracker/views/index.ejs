@@ -16,7 +16,9 @@
       <li>
         <img src="<%= book.cover_url %>" alt="cover" width="50" />
         <strong><%= book.title %></strong> by <%= book.author %><br />
-        Rating: <%= book.rating %> | Read: <%= book.date_read %><br />
+        Rating: <%= book.rating %> | <% const options = { weekday: 'short',
+        year: 'numeric', month: 'short', day: 'numeric' }; %> Read: <%= new
+        Date(book.date_read).toLocaleDateString('en-US', options) %> <br />
         Review: <%= book.review %>
       </li>
       <% }); %> <% } %>
