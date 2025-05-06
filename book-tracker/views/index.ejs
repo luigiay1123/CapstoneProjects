@@ -9,6 +9,15 @@
   <body>
     <h1>My Book List</h1>
     <a href="/books/add">+ Add a new book</a>
+    <form method="GET" action="/books" style="margin-bottom: 1rem;">
+      <label for="sort">Sort by:</label>
+      <select name="sort" id="sort" onchange="this.form.submit()">
+        <option value="">-- Choose --</option>
+        <option value="rating" <%= sort === 'rating' ? 'selected' : ''%>>Rating (high to low)</option>
+        <option value="date" <%= sort === 'date' ? 'selected' : '' %>>Recency (latest first)</option>
+      </select>
+    </form>
+
     <ul>
       <% if (books.length === 0) { %>
       <li>No books found.</li>
@@ -20,7 +29,7 @@
           <p>Rating: <%= book.rating %> ★</p>
           <p>
             Read:<% const options = { weekday: 'short', year: 'numeric', month:
-            'short', day: 'numeric' }; %> Read: <%= new
+            'short', day: 'numeric' }; %> <%= new
             Date(book.date_read).toLocaleDateString('en-US', options) %>
           </p>
           <p>Review: <%= book.review %></p>

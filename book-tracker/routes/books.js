@@ -6,14 +6,21 @@ const router = express.Router();
 
 //GET /books - show all books
 router.get("/", async (req, res) => {
+  const sort = req.query.sort;
+  let query = "SELECT * FROM books";
+
+  if (sort === "rating") {
+    query += " ORDER BY rating DESC";
+  } else if (sort === "date") {
+    query += " ORDER BY date_read DESC";
+  }
+
   try {
-    const result = await pool.query(
-      "SELECT * FROM books ORDER BY date_read DESC"
-    );
+    const result = await pool.query(query);
     console.log(result.rows);
-    res.render("index", { books: result.rows });
+    res.render("index", { books: result.rows, sort: sort });
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching sorted books", error);
     res.status(500).send("Server Error");
   }
 });
@@ -55,11 +62,63 @@ router.get("/add", async (req, res) => {
   }
 });
 
+router.get("/search", async (req, res) => {
+  const query = req.query.query.trim();
+
+  try {
+    let apiUrl = "";
+
+    // Check if it's an ISBN (basic check: digits and maybe dashes)
+    const isISBN = /^\d{9,13}(\-\d+)?$/.test(query);
+
+    if (isISBN) {
+      const isbn = query.replace(/-/g, "");
+      apiUrl = `https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json&jscmd=data`;
+    } else {
+      // Search by title
+      apiUrl = `https://openlibrary.org/search.json?title=${encodeURIComponent(
+        query
+      )}`;
+    }
+
+    const response = await axios.get(apiUrl);
+
+    let bookData;
+
+    if (isISBN) {
+      const key = Object.keys(response.data)[0];
+      bookData = response.data[key];
+    } else {
+      const firstResult = response.data.docs[0];
+      console.log("/search block", firstResult.author_name);
+      if (!firstResult) {
+        return res.send("No results found.");
+      }
+
+      bookData = {
+        title: firstResult.title,
+        author: firstResult.author_name ? firstResult.author_name[0] : [],
+        publish_date: firstResult.first_publish_year || "",
+        isbn: firstResult.isbn ? firstResult.isbn[0] : null, // Grab first ISBN
+        cover_url: firstResult.cover_i
+          ? `https://covers.openlibrary.org/b/id/${firstResult.cover_i}-L.jpg`
+          : null,
+      };
+    }
+
+    // Render your form to confirm/save the book info
+    res.render("add", { bookData: bookData });
+  } catch (err) {
+    console.error("Search error:", err);
+    res.status(500).send("Error fetching book.");
+  }
+});
+
 //POST /books/add - save book to database
 router.post("/add", async (req, res) => {
   const { title, author, isbn, review, rating, date_read, cover_url } =
     req.body;
-
+  console.log(req.body);
   try {
     await pool.query(
       `INSERT INTO books (title, author, isbn, review, rating, date_read, cover_url)
