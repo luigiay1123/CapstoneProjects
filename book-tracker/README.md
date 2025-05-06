@@ -44,7 +44,7 @@ Use pgAdmin or the psql CLI to create your books table.
 
 🧪 Running the Project
 
-npm run dev
+nodemon index.js
 
 This runs the app using nodemon (make sure it's installed globally or listed in devDependencies).
 
