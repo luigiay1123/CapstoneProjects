@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+:root {
+  --primaryColor: #5185A5;
+  --color1: #fff;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: "Rubik", sans-serif;
+}
+
+body {
+  padding-top: 8rem;
+}
+
+a {
+  text-decoration: none;
+  font-family: Rubik, sans-serif;
+}
+
+/* Nav Section */
+.head-nav {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+}
+
+.head-nav .container {
+  height: 8rem;
+  padding: 2rem;
+}
+
+.nav-items {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-add {
+  font-size: 20px;
+  height: 3rem;
+  width: 13rem;
+  background-color: var(--primaryColor);
+  color: var(--color1);
+  border-radius: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
