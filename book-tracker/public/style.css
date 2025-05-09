@@ -3,6 +3,12 @@
 :root {
   --primaryColor: #5185A5;
   --color1: #fff;
+  --color2: #31708F;
+  --color3: #8FC1E2;
+  --color4: #FA9434;
+  --color5: #8A8A8A;
+  --color6: #E4F4FF;
+  --color7: #CAE1EC;
 }
 
 *,
@@ -16,12 +22,16 @@
 }
 
 body {
-  padding-top: 8rem;
+  padding-top: 10vh;
 }
 
 a {
   text-decoration: none;
   font-family: Rubik, sans-serif;
+  color: var(--color1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Nav Section */
@@ -34,14 +44,15 @@ a {
 }
 
 .head-nav .container {
-  height: 8rem;
-  padding: 2rem;
+  height: 10vh;
+  padding: 0 2rem;
 }
 
 .nav-items {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
 }
 
 .nav-add {
@@ -49,9 +60,241 @@ a {
   height: 3rem;
   width: 13rem;
   background-color: var(--primaryColor);
-  color: var(--color1);
   border-radius: 1.5rem;
+}
+
+/* Hero Section */
+.hero-section {
+  background-color: var(--color2);
+  height: 50vh;
+  width: 100vw;
+}
+
+.hero-section .container {
+  padding-left: 10rem;
+  height: 100%;
+}
+
+.hero-items {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.text-side {
+  width: 41.67%;
+  color: white;
+}
+
+h1, h1 span, h2 {
+  font-family: 'EB Garamond', serif;
+}
+
+h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 4.75rem;
+  margin-bottom: 1.25rem;
+}
+
+h1 span{
+  color: var(--color3)
+}
+
+.text-side p {
+  font-size: 20px;
+  margin-bottom: 3rem;
+}
+
+.image-side {
+  height: 100%;
+  margin: auto;
+}
+
+.hero-pic {
+  height: 100%;
+  width: auto;
+}
+
+.text-side a {
+  height: 3.5rem;
+  width: 20rem;
+  background-color: var(--color4);
+  box-shadow: 3px 6px 4px rgba(31, 81, 106, 0.53);
+  border-radius: 1.5rem;
+  font-size: 1.5rem;
+}
+
+/* Sort Nav */
+.sort-nav .container{
+  padding: 4rem 10rem 0 10rem;
+}
+
+h2 {
+  color: var(--color2);
+  font-size: 2.5rem;
+}
+
+.sort-nav-items {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sort-dropdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sort-controls {
+  align-self: flex-end;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#clearSort {
+  color: var(--color5);
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+}
+
+.sort-form {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.hidden {
+  display: none;
+}
+
+#sortToggle {
+  background-color: transparent;
+  border: 1px solid var(--color2);
+  height: 3rem;
+  width: 10.5rem;
+  border-radius: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color2);
+  font-size: 1.25rem;
+}
+
+/* Hide native radio input */
+.custom-radio input[type="radio"] {
+  display: none;
+}
+
+/* Style the label as a button */
+.custom-radio span {
+  display: inline-block;
+  height: 3rem;
+  width: 10.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color2);
+  font-size: 1.25rem;
+  border-radius: 1.5rem;
+  background-color: transparent;
+  border: 1px solid var(--color7);
+}
+
+.custom-radio span:hover {
+  background-color: rgba(49,112,143, 0.5);
+}
+
+.custom-radio input[type="radio"]:checked + span {
+  background-color: var(--color6);
+  border-color: var(--color2);
+}
+
+.custom-radio img {
+  margin-right: 0.5rem;
+}
+
+/* Book Grid */
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+.book-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.book-card:hover {
+  transform: translateY(-5px);
+}
+
+.book-card img {
+  width: 100%;
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.no-cover {
+  width: 100%;
+  height: 250px;
+  background: #eee;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #666;
+  font-style: italic;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.card-buttons button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #444;
+}
+
+.card-buttons button:hover {
+  color: #007BFF;
+}
+
+.add-book-card {
+  background: #f0f0f0;
+  border: 2px dashed #aaa;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-book-card a {
+  text-decoration: none;
+  color: #333;
+}
+
+.add-book-card img {
+  width: 60px;
+  margin-bottom: 1rem;
 }

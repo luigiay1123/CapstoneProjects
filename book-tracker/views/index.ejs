@@ -1,17 +1,108 @@
 <%- include("partials/header") %>
   <body>
     <%- include("partials/navbar") %>
-    <h1>My Book List</h1>
-    <form method="GET" action="/books" style="margin-bottom: 1rem;">
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-items">
+          <div class="text-side">
+            <h1>Your <span>Personal</span> Book Tracker</h1>
+            <p>Easily keep track of the books you’ve read, organize your reading history, and look back on your reading journey anytime. Simple, personal, and all yours.</p>
+            <a href="books/add">+ Add Your Books Now</a>
+          </div>
+          <div class="image-side">
+            <img class="hero-pic" src="/images/readingBook.svg" alt="girl reading a book">
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    
+    <% const hasSort = sort === 'rating' || sort === 'date'; %>
+    <nav class="sort-nav">
+      <div class="container">
+        <div class="sort-nav-items">
+          <h2>My Reading Journey</h2>
+
+          <% if (books && books.length > 0) { %>
+          <div class="sort-dropdown">
+            <!-- Top row: Clear + Sort button -->
+            <div class="sort-controls">
+              <% if (hasSort) { %>
+                <a href="/books" id="clearSort">Clear</a>
+              <% } %>
+              <button type="button" id="sortToggle">
+                <img src="/images/filterIcon.svg" alt="Sort">  Sort By
+              </button>
+            </div>
+            
+            <!-- Hidden form appears below -->
+            <form method="GET" action="/books" id="sortForm" class="sort-form <%= hasSort ? '' : 'hidden' %>">
+              <label class="custom-radio">
+                <input type="radio" name="sort" value="rating" onchange="this.form.submit()" <%= sort === 'rating' ? 'checked' : ''%> />
+                <span>&#9733 Ratings</span>
+              </label>
+              <label class="custom-radio">
+                <input type="radio" name="sort" value="date" onchange="this.form.submit()" <%= sort === 'date' ? 'checked' : ''%> />
+                <span><img src="/images/calendar.png">Date</span>
+              </label>
+            </form>
+          </div>
+          <% } %>
+      </div>
+     </div>
+    </nav>
+
+    <div class="book-grid">
+      <% books.forEach(book => { %>
+        <div class="book-card">
+          <% if (book.cover_url) { %>
+            <img src="<%= book.cover_url %>" alt="Book cover">
+          <% } else { %>
+            <div class="no-cover">No cover</div>
+          <% } %>
+          <h3><%= book.title %></h3>
+          <p><%= book.author %></p>
+          <div class="card-buttons">
+            <form
+            method="GET"
+            action="/books/<%= book.id %>/edit"
+            style="display: inline"
+          >
+            <button type="submit">Edit</button>
+            </form>
+
+            <form
+            method="POST"
+            action="/books/<%= book.id %>/delete"
+            style="display: inline"
+          >
+            <button type="submit" onclick="return confirm('Are you sure?')">
+              Delete
+            </button>
+            </form>
+          </div>
+        </div>
+      <% }); %>
+
+      <!-- Add a Book Card -->
+       <div class="book-card add-book-card">
+        <a href="books/add">
+          <img src="/images/libraryAdd.svg" alt="Add a book">
+          <h3>Add a Book</h3>
+        </a>
+       </div>
+    </div>
+
+    <!-- <form method="GET" action="/books" style="margin-bottom: 1rem;">
       <label for="sort">Sort by:</label>
       <select name="sort" id="sort" onchange="this.form.submit()">
         <option value="">-- Choose --</option>
         <option value="rating" <%= sort === 'rating' ? 'selected' : ''%>>Rating (high to low)</option>
         <option value="date" <%= sort === 'date' ? 'selected' : '' %>>Recency (latest first)</option>
       </select>
-    </form>
+    </form> -->
 
-    <ul>
+    <!-- <ul>
       <% if (books.length === 0) { %>
       <li>No books found.</li>
       <% } else { %> <% books.forEach(book => { %>
@@ -51,6 +142,7 @@
         </div>
       </li>
       <% }); %> <% } %>
-    </ul>
+    </ul> -->
+    <script src="/index.js"></script>
   </body>
 </html>
