@@ -43,7 +43,7 @@
               </label>
               <label class="custom-radio">
                 <input type="radio" name="sort" value="date" onchange="this.form.submit()" <%= sort === 'date' ? 'checked' : ''%> />
-                <span><img src="/images/calendar.png">Date</span>
+                <span><img src="/images/calendar.svg">Date</span>
               </label>
             </form>
           </div>
@@ -52,47 +52,55 @@
      </div>
     </nav>
 
-    <div class="book-grid">
-      <% books.forEach(book => { %>
-        <div class="book-card">
-          <% if (book.cover_url) { %>
-            <img src="<%= book.cover_url %>" alt="Book cover">
-          <% } else { %>
-            <div class="no-cover">No cover</div>
-          <% } %>
-          <h3><%= book.title %></h3>
-          <p><%= book.author %></p>
-          <div class="card-buttons">
-            <form
-            method="GET"
-            action="/books/<%= book.id %>/edit"
-            style="display: inline"
-          >
-            <button type="submit">Edit</button>
-            </form>
+    <div class="book-list">
+      <div class="container">
+        <div class="book-grid">
+          <% books.forEach(book => { %>
+            <div class="book-card">
+              <% if (book.cover_url) { %>
+                <img src="<%= book.cover_url %>" alt="Book cover">
+              <% } else { %>
+                <div class="no-cover">No cover</div>
+              <% } %>
+              <h3><%= book.title %></h3>
+              <p><%= book.author %></p>
+              <div class="card-buttons">
+                <form
+                method="GET"
+                action="/books/<%= book.id %>/edit"
+                style="display: inline"
+              >
+                <button type="submit"><img src="/images/edit.svg" alt="Edit"></button>
+                </form>
 
-            <form
-            method="POST"
-            action="/books/<%= book.id %>/delete"
-            style="display: inline"
-          >
-            <button type="submit" onclick="return confirm('Are you sure?')">
-              Delete
-            </button>
-            </form>
+                <form
+                method="POST"
+                action="/books/<%= book.id %>/delete"
+                style="display: inline"
+              >
+                <button type="submit" onclick="return confirm('Are you sure?')">
+                  <img src="/images/delete.svg" alt="Delete">
+                </button>
+                </form>
+                <form 
+                method="GET"
+                action="/books/<%= book.id %>/view">
+                  <button type="submit"><img src="/images/view.svg" alt="View"></button>
+                </form>
+              </div>
+            </div>
+          <% }); %>
+
+          <!-- Add a Book Card -->
+          <div class="book-card add-book-card">
+            <a href="books/add">
+              <img src="/images/libraryAdd.svg" alt="Add a book">
+              <p>Add a Book</p>
+            </a>
           </div>
         </div>
-      <% }); %>
-
-      <!-- Add a Book Card -->
-       <div class="book-card add-book-card">
-        <a href="books/add">
-          <img src="/images/libraryAdd.svg" alt="Add a book">
-          <h3>Add a Book</h3>
-        </a>
-       </div>
+      </div>
     </div>
-
     <!-- <form method="GET" action="/books" style="margin-bottom: 1rem;">
       <label for="sort">Sort by:</label>
       <select name="sort" id="sort" onchange="this.form.submit()">

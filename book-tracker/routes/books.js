@@ -64,6 +64,7 @@ router.get("/add", async (req, res) => {
 
 router.get("/search", async (req, res) => {
   const query = req.query.query.trim();
+  let isbn = '';
 
   try {
     let apiUrl = "";
@@ -72,7 +73,7 @@ router.get("/search", async (req, res) => {
     const isISBN = /^\d{9,13}(\-\d+)?$/.test(query);
 
     if (isISBN) {
-      const isbn = query.replace(/-/g, "");
+      isbn = query.replace(/-/g, "");
       apiUrl = `https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json&jscmd=data`;
     } else {
       // Search by title
@@ -87,7 +88,19 @@ router.get("/search", async (req, res) => {
 
     if (isISBN) {
       const key = Object.keys(response.data)[0];
-      bookData = response.data[key];
+      const data = response.data[key];
+      if (!data) {
+        return res.send("No results found.")
+      }
+      bookData = {
+        title: data.title || "",
+       author: data.authors?.[0].name || "",
+        isbn,
+       cover_url: data.cover?.large || "",
+      }
+      // const key = Object.keys(response.data)[0];
+      // bookData = response.data[key];
+      console.log(bookData);
     } else {
       const firstResult = response.data.docs[0];
       console.log("/search block", firstResult.author_name);
