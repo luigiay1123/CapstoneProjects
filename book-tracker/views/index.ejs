@@ -54,50 +54,74 @@
 
     <div class="book-list">
       <div class="container">
-        <div class="book-grid">
-          <% books.forEach(book => { %>
-            <div class="book-card">
-              <% if (book.cover_url) { %>
-                <img src="<%= book.cover_url %>" alt="Book cover">
-              <% } else { %>
-                <div class="no-cover">No cover</div>
-              <% } %>
-              <h3><%= book.title %></h3>
-              <p><%= book.author %></p>
-              <div class="card-buttons">
-                <form
-                method="GET"
-                action="/books/<%= book.id %>/edit"
-                style="display: inline"
-              >
-                <button type="submit"><img src="/images/edit.svg" alt="Edit"></button>
-                </form>
-
-                <form
-                method="POST"
-                action="/books/<%= book.id %>/delete"
-                style="display: inline"
-              >
-                <button type="submit" onclick="return confirm('Are you sure?')">
-                  <img src="/images/delete.svg" alt="Delete">
-                </button>
-                </form>
-                <form 
-                method="GET"
-                action="/books/<%= book.id %>/view">
-                  <button type="submit"><img src="/images/view.svg" alt="View"></button>
-                </form>
-              </div>
-            </div>
-          <% }); %>
-
-          <!-- Add a Book Card -->
-          <div class="book-card add-book-card">
-            <a href="books/add">
-              <img src="/images/libraryAdd.svg" alt="Add a book">
-              <p>Add a Book</p>
-            </a>
+        <% if (!books || books.length === 0) { %>
+          <div class="empty-shelf">
+            <img src="/images/empty.svg" alt="Empty book illustration" class="empty-shelf-img">
+            <h3>Looks like your shelf is empty!</h3>
+            <p>Add your first book to begin your reading log.</p>
+            <a href="/books/add" class="start-button"><img src="/images/plush.svg"> Start Here</a>
           </div>
+        <% } else { %>    
+          <div class="book-grid">
+            <% books.forEach(book => { %>
+              <div class="book-card">
+                <% if (book.cover_url) { %>
+                  <img src="<%= book.cover_url %>" alt="Cover of <%= book.title %>">
+                <% } else { %>
+                  <div class="no-cover">No cover</div>
+                <% } %>
+                <h3><%= book.title %></h3>
+                <p><%= book.author %></p>
+                <div class="card-buttons">
+                  <form
+                  method="GET"
+                  action="/books/<%= book.id %>/edit"
+                  style="display: inline"
+                >
+                  <button type="submit" aria-label="Edit button"><img src="/images/edit.svg" alt="Edit"></button>
+                  </form>
+
+                  <button type="button" 
+                    class="open-modal-btn"
+                    data-title="Delete Book?"
+                    data-message="Are you sure you want to delete this book from your list?<br>This action <span>can't be undone.</span>"
+                    data-action="/books/<%= book.id %>/delete"
+                    data-label='<img src="/images/trash.svg" alt="Trash icon"> Delete Book'
+                    aria-label="Delete button"
+                  >
+                    <img src="/images/delete.svg" alt="Delete">
+                  </button>
+
+                  <form 
+                  method="GET"
+                  action="/books/<%= book.id %>/view">
+                    <button type="submit" aria-label="View Button"><img src="/images/view.svg" alt="View"></button>
+                  </form>
+                </div>
+              </div>
+            <% }); %>
+
+            <!-- Add a Book Card -->
+            <div class="book-card add-book-card">
+              <a href="books/add">
+                <img src="/images/libraryAdd.svg" alt="Add a book">
+                <p>Add a Book</p>
+              </a>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+
+    <div id="confirmationModal" class="modal hidden">
+      <div class="modal-box">
+        <h2 id="modalTitle">Are you sure?</h2>
+        <p id="modalMessage">This action can't be undone.</span></p>
+        <div class="modal-actions">
+          <button id="cancelBtn">&#10005 Cancel</button>
+          <form id="modalForm" method="POST">
+            <button type="submit" class="danger" id="confirmBtn">Delete Book</button>
+          </form>
         </div>
       </div>
     </div>

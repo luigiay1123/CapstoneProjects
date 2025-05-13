@@ -11,6 +11,8 @@
   --color7: #CAE1EC;
   --color8: #434343;
   --color9: #9F9F9F;
+  --color10: #717171;
+  --color11: #777474;
 
 }
 
@@ -88,7 +90,7 @@ a {
 
 .text-side {
   width: 41.67%;
-  color: white;
+  color: var(--color1);
 }
 
 h1, h1 span, h2 {
@@ -332,4 +334,139 @@ h3, .book-card p{
 .add-book-card img {
   width: 60px;
   box-shadow: none;
+}
+
+/* Modal */
+.modal.hidden {
+  display: none;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+@supports ((-webkit-backdrop-filter: blur(5px)) or (backdrop-filter: blur(5px))) {
+  .modal {
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+  }
+}
+
+.modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-box {
+  background: var(--color1);
+  padding: 2.5rem 4.25rem 3.5rem 2.5rem;
+  width: 45%;
+  text-align: center;
+  border-radius: 1rem;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  transform: translateY(-20px);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.modal.show .modal-box {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modal-box p, .modal-box span{
+  font-family: Lato, sans-serif;
+  font-size: 1.25rem;
+  line-height: 159%;
+}
+
+.modal-box span {
+  font-weight: 900;
+}
+
+.modal-box h2 {
+  font-weight: 800;
+}
+
+.modal-actions {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.modal-actions button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 1.75rem 1rem 1.75rem;
+  cursor: pointer;
+  border-radius: 1.75rem;
+  border: 1px solid var(--color4);
+  color: var(--color10);
+  font-size: 1.25rem;
+  transition: transform 0.2s ease;
+}
+
+.modal-actions button:hover {
+  transform: translateY(-5px);
+}
+
+button.danger {
+  background: var(--color4);
+  color: var(--color1)
+}
+
+#cancelBtn {
+  background: var(--color1);
+}
+
+button.danger img {
+  margin-right: 0.5rem;
+}
+
+/* Empty Shelf */
+.empty-shelf {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty-shelf h3 {
+  font-family: 'EB Garamond', serif;
+  font-weight: 500;
+  font-size: 1.75rem;
+  color: var(--color8);
+}
+
+.empty-shelf p {
+  font-family: Lato, sans-serif;
+  font-size: 1.25rem;
+  color: var(--color11);
+}
+
+.start-button {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  background-color: var(--color2);
+  width: 11.5rem;
+  height: 3rem;
+  box-shadow: 3px 6px 4px 0px #0808081C;
+  border-radius: 1.5rem;
+  font-size: 1.25rem;
 }
