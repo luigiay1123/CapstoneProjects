@@ -30,7 +30,7 @@ router.get("/add", async (req, res) => {
   const { isbn } = req.query;
 
   if (!isbn) {
-    return res.render("add", { bookData: null });
+    return res.render("add", { bookData: null, message: null });
   }
 
   try {
@@ -45,7 +45,7 @@ router.get("/add", async (req, res) => {
     const data = response.data[`ISBN:${isbn}`];
 
     if (!data) {
-      return res.render("add", { bookData: null });
+      return res.render("add", { bookData: null, message: "No results found for that ISBN." });
     }
 
     const bookData = {
@@ -55,10 +55,10 @@ router.get("/add", async (req, res) => {
       cover_url: data.cover?.medium || "",
     };
     console.log(bookData);
-    res.render("add", { bookData });
+    res.render("add", { bookData, message: null });
   } catch (error) {
     console.error(error);
-    res.render("add", { bookData: null });
+    res.render("add", { bookData: null, message: null });
   }
 });
 
@@ -90,7 +90,11 @@ router.get("/search", async (req, res) => {
       const key = Object.keys(response.data)[0];
       const data = response.data[key];
       if (!data) {
-        return res.send("No results found.")
+        return res.render("add", { bookData: null, message: { 
+            title: "Nothing found",
+            details1: "We couldn't find any books matching for that ISBN.",
+            details2: "Double-check ISBN or try using different number.",
+            image: "/images/magnifier.svg", } });
       }
       bookData = {
         title: data.title || "",
@@ -103,9 +107,13 @@ router.get("/search", async (req, res) => {
       console.log(bookData);
     } else {
       const firstResult = response.data.docs[0];
-      console.log("/search block", firstResult.author_name);
       if (!firstResult) {
-        return res.send("No results found.");
+        return res.render("add", { bookData: null, 
+          message: { 
+            title: "Nothing found",
+            details1: "We couldn't find any books matching for that title.",
+            details2: "Double-check title or try using different keywords.",
+            image: "/images/magnifier.svg", } });
       }
 
       bookData = {
@@ -120,10 +128,10 @@ router.get("/search", async (req, res) => {
     }
 
     // Render your form to confirm/save the book info
-    res.render("add", { bookData: bookData });
+    res.render("add", { bookData, message: null });
   } catch (err) {
     console.error("Search error:", err);
-    res.status(500).send("Error fetching book.");
+    res.status(500).render("add", { bookData: null, message: "Error fetching book data" });
   }
 });
 
@@ -136,7 +144,7 @@ router.post("/add", async (req, res) => {
     await pool.query(
       `INSERT INTO books (title, author, isbn, review, rating, date_read, cover_url)
       VALUES ($1, $2, $3, $4, $5, $6, $7)`,
-      [title, author, isbn, review, rating, date_read, cover_url]
+      [title, author, isbn || null, review, rating, date_read, cover_url]
     );
 
     res.redirect("/books");
