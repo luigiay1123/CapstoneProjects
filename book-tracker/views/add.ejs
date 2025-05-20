@@ -1,125 +1,35 @@
-<%- include('partials/header')%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Book List</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <link rel="stylesheet" href="/style.css" />
+</head>
 <body>
   <%- include("partials/navbar") %>
-  <section class="add-book">
+  <main class="add-book">
     <div class="container">
-      <div class="header-add">  
-        <h1>Add a Book</h1>
+
+      <%- include("partials/header-add", {bookData, message}) %>
+      
         <!-- <form action="/books/add" method="GET">
           <label>Search by ISBN or Book Title</label>
           <input type="text" name="isbn" required />
           <button type="submit">Autofill</button>
         </form> -->
 
-        <!-- Search form -->
-        <form action="/books/search" method="GET" class="add-search-form">
-          <input
-            type="text"
-            name="query"
-            placeholder="Search by ISBN or Book Title"
-            required
-            autofocus
-            class="add-search-input"
-          />
-          <button type="submit" class="add-search-btn">Search</button>
-        </form>
-
-        <% if (!bookData && !message) { %>
-          <!-- Show this only on first load -->
-          <div class="add-form-actions">
-             <a href="/books" class="back-link"><img src="/images/previous.svg"> Back to book list</a>
-          </div>
-        <% } %>  
-      </div>
 
       <% if (bookData) { %>
-      <form method="POST" action="/books/add" class="add-book-details">
-        <% if (bookData.isbn) {%>
-        <input type="hidden" name="isbn" value="<%= bookData.isbn %>" />
-        <% } %>
-        <input type="hidden" name="cover_url" value="<%= bookData.cover_url %>" />
-        
-        <div class="add-book-info">
-          <% if (bookData.cover_url) { %>
-          <img src="<%= bookData.cover_url %>" alt="Book Cover" class="book-cover-preview">
-          <% } %>
-          
-          <div class="add-book-user-verify">
-            <input
-              type="text"
-              name="title"
-              value="<%= bookData.title %>"
-              required
-              class="title-input"
-            />
-
-            <div class="author-line">
-              <label for="author">By</label>
-              <input
-                type="text"
-                name="author"
-                id="author"
-                value="<%= bookData.author %>"
-                required
-                class="author-input"
-              />
-            </div>
-
-            <div class="input-date-rating">
-              <div class="input-date">
-                <label for="datePicker" class="dateLabel">Date Read:</label>
-                <div class="custom-date-wrapper">
-                  <input id="datePicker" name="date_read" type="date" placeholder="" required />
-                  <img src="/images/calendar.svg" alt="calendar icon" class="calendar-icon" />
-                </div>
-              </div>
-
-              <div class="input-rating">
-                <label class="ratingLabel">Your rating:</label>
-
-                <!-- Fallback for no-JavaScript -->
-                <noscript>
-                  <input type="number" name="rating" min="1" max="5" value="1" required />
-                </noscript>
-
-                <!-- Star Rating UI (hidden by default, shown by JS) -->
-                <div class="stars js-only" data-selected="1" style="display: none;">
-                  <% for (let i = 1; i <= 5; i++) { %>
-                    <span class="star" data-value="<%= i %>">&#9733;</span>
-                  <% } %>
-                </div>
-
-                <!-- This hidden input stores the selected rating -->
-                <input type="hidden" name="rating" id="ratingInput" value="1" />
-              </div>
-            </div>
-            <textarea name="review" class="input-review" placeholder="Write a review..."></textarea>
-
-          </div>  
-        </div>
-
-        <div class="add-form-actions">
-          <a href="/books" class="back-link"><img src="/images/previous.svg"> Back to book list</a>
-          <button type="submit" class="form-add-btn">+ Add Book</button>
-        </div>
-      </form>
+        <%- include("partials/book-form", {bookData}) %>
       <% } else if (message) { %>
-        <!-- No book found, show message -->
-        <div class="message no-result-message">
-          <div class="message-head">
-            <img src="<%= message.image || '/images/magnifier.svg' %>" alt="No results" class="no-result-img">
-            <h2><%= message.title || "Nothing found"%></h2>
-          </div>
-            <div class="message-details">  
-              <p><%= message.details1 %><br><%= message.details2 %></p>
-            </div>
-          <div class="add-form-actions">
-            <a href="/books" class="back-link"><img src="/images/previous.svg"> Back to book list</a>
-          </div>
-         </div>
+        <%- include("partials/no-result-message", message) %>
       <% } %>
     </div>
-  </section>
+  </main>
 
   <script src="/js/stars.js"></script>
   <script src="/js/flatpicker.js"></script>

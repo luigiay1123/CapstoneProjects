@@ -1,0 +1,10 @@
+<section class="message no-result-message" aria-label="Search result message">
+  <div class="message-head">
+    <img src="<%= message.image || '/images/magnifier.svg' %>" alt="No results" class="no-result-img">
+    <h2><%= message.title || "Nothing found" %></h2>
+  </div>
+  <div class="message-details">
+    <p><%= message.details1 %><br><%= message.details2 %></p>
+  </div>
+  <%- include("../partials/form-actions", { showSubmit: false, submitLabel: "+ Add Book" }) %>
+</section>

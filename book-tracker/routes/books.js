@@ -154,6 +154,23 @@ router.post("/add", async (req, res) => {
   }
 });
 
+// GET /books/:id/view - show view.ejs
+router.get("/:id/view", async (req, res) => {
+  const { id } = req.params;
+  console.log(req.params);
+
+  try {
+    const result = await pool.query("SELECT * FROM books where id = $1", [id]);
+    const book = result.rows[0];
+
+    if (!book) return res.status(404).send("Book not found");
+    res.render("view", { book });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error loading book.");
+  }
+});
+
 // GET /books/:id/edit - show edit form
 router.get("/:id/edit", async (req, res) => {
   const { id } = req.params;
@@ -200,6 +217,10 @@ router.post("/:id/delete", async (req, res) => {
     console.error(error);
     res.status(500).send("Error deleting book.");
   }
+});
+
+router.get("/test-include", (req, res) => {
+  res.render("test-include");
 });
 
 export default router;

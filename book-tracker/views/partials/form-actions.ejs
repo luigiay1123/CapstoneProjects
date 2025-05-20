@@ -1,0 +1,14 @@
+<footer class="add-form-actions">
+  <a href="/books" class="back-link">
+    <img src="/images/previous.svg"> Back to book list
+  </a>
+  <% if (showSubmit) { %>
+    <button type="submit" class="form-add-btn">
+      <%= submitLabel || "Submit" %>
+    </button>
+  <% } else if (linkButton) { %>
+    <a href="<%= linkButton.href %>" class="form-add-btn">
+      <%- linkButton.label %>
+    </a>
+  <% } %>
+</footer>

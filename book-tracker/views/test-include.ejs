@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test Include</title></head>
+<body>
+  <% try { %>
+    <%- include("partials/form-actions", { showSubmit: true }) %>
+  <% } catch (err) { %>
+    <p style="color:red;">Error: <%= err.message %></p>
+  <% } %>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<%- include("partials/header") %>
+  <body>
+    <%- include("partials/navbar") %>
+    <main class="view-book">
+      <div class="container">
+        <article class="view-book-details">
+          <div class="book-record-view">
+            <% if (book.cover_url) { %>
+            <figure>
+              <img src="<%= book.cover_url %>" alt="Book Cover for <%= book.title %>" class="view-cover-preview">
+            </figure>
+            <% } %>
+            <div class="view-book-info">
+              <h2><%= book.title %></h2>
+              <p class="author-view">By <%= book.author %></p>
+              <div class="rating-display">
+                <div class="stars-view">
+                  <% for (let i = 1; i <= 5; i++) {
+                    let starColor = "";
+                    if (i <= book.rating) {
+                      starColor = book.rating === 2 ? "#fa9434" :
+                                  book.rating === 3 ? "#e6c4a3" :
+                                  "#f5d742";
+                    }
+                  %>
+                  <span class="star" style="color: <%= i <= book.rating ? starColor : '#ccc' %>;">&#9733;</span>
+                  <% } %>
+                </div>
+                <span class="rating-numeric">(<%= book.rating %>/5)</span>
+              </div>
+              <p class="date-display">Date Read: <span><%= new Date(book.date_read).toLocaleDateString("en-US") %></span></p>
+              <div class="review-view">
+                <p>Review:</p>
+                <pre class="review-text"><%= book.review %></pre>
+              </div>
+            </div>
+          </div>
+          <% const editLink = `/books/${book.id}/edit`;
+           const editLabel = '<img src="/images/editView.svg" alt="Edit Icon"> Edit Details';
+        %>
+        <%- include("partials/form-actions", { showSubmit: false,
+          linkButton: { href: editLink, label: editLabel,
+          }
+        }) %>
+        </article>
+        
+        
+      </div>
+
+    </main>
+    
+  </body>
+</html>

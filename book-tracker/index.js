@@ -25,6 +25,10 @@ app.get("/", (req, res) => {
   res.redirect("/books");
 });
 
+app.get("/test-include", (req, res) => {
+  res.render("test-include");
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port: ${PORT}`);
 });

@@ -1,0 +1,69 @@
+<article class="add-book-details">
+  <form method="POST" action="/books/add">
+    <% if (bookData.isbn) { %>
+      <input type="hidden" name="isbn" value="<%= bookData.isbn %>" />
+    <% } %>
+    <input type="hidden" name="cover_url" value="<%= bookData.cover_url %>" />
+
+    <div class="add-book-info">
+      <% if (bookData.cover_url) { %>
+        <figure>
+          <img src="<%= bookData.cover_url %>" alt="Book Cover" class="book-cover-preview">
+        </figure>
+      <% } %>
+
+      <div class="add-book-user-verify">
+        <label for="title" class="sr-only">Book Title</label>
+        <input
+          id="title"
+          type="text"
+          name="title"
+          value="<%= bookData.title %>"
+          required
+          class="title-input"
+        />
+
+        <div class="author-line">
+          <label for="author">By</label>
+          <input
+            type="text"
+            name="author"
+            id="author"
+            value="<%= bookData.author %>"
+            required
+            class="author-input"
+          />
+        </div>
+
+        <div class="input-date-rating">
+          <div class="input-date">
+            <label for="datePicker" class="dateLabel">Date Read:</label>
+            <div class="custom-date-wrapper">
+              <input id="datePicker" name="date_read" type="date" required />
+              <img src="/images/calendar.svg" alt="calendar icon" class="calendar-icon" />
+            </div>
+          </div>
+
+          <div class="input-rating">
+            <label for="ratingInput" class="ratingLabel sr-only">Your rating</label>
+            <noscript>
+              <input type="number" name="rating" min="1" max="5" value="1" required />
+            </noscript>
+
+            <div class="stars js-only" data-selected="1" style="display: none;">
+              <% for (let i = 1; i <= 5; i++) { %>
+                <span class="star" data-value="<%= i %>">&#9733;</span>
+              <% } %>
+            </div>
+
+            <input type="hidden" name="rating" id="ratingInput" value="1" />
+          </div>
+        </div>
+
+        <textarea name="review" class="input-review" placeholder="Write a review..."></textarea>
+      </div>
+    </div>
+
+    <%- include("../partials/form-actions", { showSubmit: true, submitLabel: "+ Add Book" }) %>
+  </form>
+</article>
