@@ -24,7 +24,7 @@
 
 
       <% if (bookData) { %>
-        <%- include("partials/book-form", {bookData}) %>
+        <%- include("partials/book-form", { bookData, isEdit: false }) %>
       <% } else if (message) { %>
         <%- include("partials/no-result-message", message) %>
       <% } %>

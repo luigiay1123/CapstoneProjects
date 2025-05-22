@@ -11,46 +11,17 @@
 </head>
   <body>
     <%- include("partials/navbar") %>
+    <main class="edit-book">
+      <div class="container">
+          <% if (bookData) { %>
+          <%- include("partials/book-form", { bookData, isEdit: true }) %>
+          <% } else if (message) { %>
+          <%- include("partials/no-result-message", message) %>
+          <% } %>
+      </div>
+    </main>
 
-    <form method="POST" action="/books/<%= book.id %>/edit">
-      <label>Title:</label>
-      <input
-        type="text"
-        name="title"
-        value="<%= book.title %>"
-        required
-      /><br />
-
-      <label>Author:</label>
-      <input
-        type="text"
-        name="author"
-        value="<%= book.author %>"
-        required
-      /><br />
-
-      <label>Review:</label>
-      <textarea name="review"><%= book.review %></textarea><br />
-
-      <label>Rating:</label>
-      <input
-        type="number"
-        name="rating"
-        value="<%= book.rating %>"
-        min="1"
-        max="5"
-      /><br />
-
-      <label>Date Read:</label>
-      <input
-        type="date"
-        name="date_read"
-        value="<%= book.date_read.toISOString().substring(0,10) %>"
-      /><br />
-
-      <button type="submit">Save Changes</button>
-    </form>
-
-    <a href="/books">← Back to book list</a>
+    <script src="/js/stars.js"></script>
+    <script src="/js/flatpicker.js"></script>
   </body>
 </html>

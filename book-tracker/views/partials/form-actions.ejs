@@ -4,7 +4,7 @@
   </a>
   <% if (showSubmit) { %>
     <button type="submit" class="form-add-btn">
-      <%= submitLabel || "Submit" %>
+      <%- submitLabel || "Submit" %>
     </button>
   <% } else if (linkButton) { %>
     <a href="<%= linkButton.href %>" class="form-add-btn">

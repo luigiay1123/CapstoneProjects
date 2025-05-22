@@ -178,10 +178,10 @@ router.get("/:id/edit", async (req, res) => {
 
   try {
     const result = await pool.query("SELECT * FROM books where id = $1", [id]);
-    const book = result.rows[0];
+    const bookData = result.rows[0];
 
-    if (!book) return res.status(404).send("Book not found");
-    res.render("edit", { book });
+    if (!bookData) return res.status(404).send("Book not found");
+    res.render("edit", { bookData, message: null });
   } catch (error) {
     console.error(error);
     res.status(500).send("Error loading book.");

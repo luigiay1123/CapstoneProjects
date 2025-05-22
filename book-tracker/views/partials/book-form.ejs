@@ -1,5 +1,5 @@
 <article class="add-book-details">
-  <form method="POST" action="/books/add">
+  <form method="POST" action="<%= isEdit ? `/books/${bookData.id}/edit` : '/books/add'%>">
     <% if (bookData.isbn) { %>
       <input type="hidden" name="isbn" value="<%= bookData.isbn %>" />
     <% } %>
@@ -39,7 +39,7 @@
           <div class="input-date">
             <label for="datePicker" class="dateLabel">Date Read:</label>
             <div class="custom-date-wrapper">
-              <input id="datePicker" name="date_read" type="date" required />
+              <input id="datePicker" name="date_read" type="date" required value="<%= bookData.date_read ? new Date(bookData.date_read).toISOString().split('T')[0] : '' %>"/>
               <img src="/images/calendar.svg" alt="calendar icon" class="calendar-icon" />
             </div>
           </div>
@@ -47,23 +47,24 @@
           <div class="input-rating">
             <label for="ratingInput" class="ratingLabel sr-only">Your rating</label>
             <noscript>
-              <input type="number" name="rating" min="1" max="5" value="1" required />
+              <input type="number" name="rating" min="1" max="5" value="<%= bookData.rating || 1 %>" required />
             </noscript>
 
-            <div class="stars js-only" data-selected="1" style="display: none;">
+            <div class="stars js-only" data-selected="<%= bookData.rating || 1 %>" style="display: none;">
               <% for (let i = 1; i <= 5; i++) { %>
                 <span class="star" data-value="<%= i %>">&#9733;</span>
               <% } %>
             </div>
 
-            <input type="hidden" name="rating" id="ratingInput" value="1" />
+            <input type="hidden" name="rating" id="ratingInput" value="<%= bookData.rating || 1 %>" />
           </div>
         </div>
 
-        <textarea name="review" class="input-review" placeholder="Write a review..."></textarea>
+        <textarea name="review" class="input-review" placeholder="Write a review..."><%= bookData.review || '' %></textarea>
       </div>
     </div>
 
-    <%- include("../partials/form-actions", { showSubmit: true, submitLabel: "+ Add Book" }) %>
+    <%- include("../partials/form-actions", { showSubmit: true, 
+      submitLabel: isEdit ? '<img src="/images/save.svg" alt="Save Icon"> Save' : "+ Add Book", linkButton: null, }) %>
   </form>
 </article>

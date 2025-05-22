@@ -482,7 +482,7 @@ button.danger img {
   height: 90vh;
 }
 
-.add-book .container, .view-book .container {
+.add-book .container, .view-book .container, .edit-book .container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -587,11 +587,12 @@ button.danger img {
   height: 8.1875rem;
   border-radius: 0.5rem;
   border: 0.0625rem solid var(--color2);
-  padding-top: 0.875rem;
+  padding: 0.875rem 1.3125rem 0.5rem 1.3125rem;
   padding-left: 1.3125rem;
   font-family: Lato, sans-serif;  
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   margin-top: 1.0625rem;
+  color: var(--color11);
 }
 
 .input-review:focus {
@@ -723,6 +724,9 @@ button.danger img {
   border: none;
   cursor: pointer;
   transform: background-color 0.2s ease;
+  font-size: 1.25rem;
+  justify-content: center;
+  font-family: Rubik, sans-serif;
 }
 
 .form-add-btn:hover {
@@ -793,4 +797,12 @@ button.danger img {
   font-family: Lato, sans-serif;
   font-size: 1.25rem;
   color: var(--color11);
+}
+
+.edit-book .input-review {
+  height: 23.0625rem;
+}
+
+.sr-only{
+  display: none;
 }
