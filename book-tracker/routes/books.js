@@ -63,7 +63,19 @@ router.get("/add", async (req, res) => {
 });
 
 router.get("/search", async (req, res) => {
-  const query = req.query.query.trim();
+  const query = (req.query.query || "").trim();
+  if (!query) {
+    return res.render("add", {
+      bookData: null,
+      message: {
+        title: "Nothing entered",
+        details1: "Please enter a search term",
+        details2: "You can search by title or ISBN.",
+        image: "/images/magnifier.svg",
+      },
+    });
+  }
+
   let isbn = '';
 
   try {
@@ -131,7 +143,11 @@ router.get("/search", async (req, res) => {
     res.render("add", { bookData, message: null });
   } catch (err) {
     console.error("Search error:", err);
-    res.status(500).render("add", { bookData: null, message: "Error fetching book data" });
+    res.status(500).render("add", { bookData: null, message: { 
+            title: "Nothing found",
+            details1: "Error fetching data",
+            details2: "",
+            image: "/images/magnifier.svg", } });
   }
 });
 

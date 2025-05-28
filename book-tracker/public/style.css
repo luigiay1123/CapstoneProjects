@@ -572,17 +572,21 @@ button.danger img {
 }
 
 .add-book-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: 4rem;
+  display: grid;
+  grid-template-columns: max-content 5.71428571% auto 8.48214285% auto;
+  grid-template-rows: repeat(5, max-content);
 }
 
-.add-book-user-verify {
-  width: 74.46%;
+.add-book-info figure {
+  grid-area: 1 / 1 / 6 / 2;
+}
+
+.title-line {
+  grid-area: 2 / 3 / 3 / 6;
 }
 
 .input-review {
+  grid-area: 5 / 3 / 6 / 6;
   width: 100%;
   height: 8.1875rem;
   border-radius: 0.5rem;
@@ -630,6 +634,14 @@ button.danger img {
     pointer-events: none;
   }
 
+  .input-date {
+    grid-area: 4 / 3 / 5 / 4;
+  }
+
+  .input-rating {
+    grid-area: 4 / 5 / 5 / 6;
+  }
+
   .input-date, .input-rating {
     display: flex;
     gap: 0.5rem;
@@ -639,7 +651,7 @@ button.danger img {
   .dateLabel, .ratingLabel {
     font-family: Lato, sans-serif;
     font-size: 1.25rem;
-    color: var(--color16);
+    color: var(--color11);
   }
 
   .stars {
@@ -660,12 +672,14 @@ button.danger img {
 }
 
 .author-line {
+  grid-area: 3 / 3 / 4 / 6;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   color: var(--color2);
   font-family: Lato, sans-serif;
   font-size: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 
 .title-input {
@@ -803,6 +817,255 @@ button.danger img {
   height: 23.0625rem;
 }
 
-.sr-only{
-  display: none;
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
+
+
+@media only screen and (max-width: 600px) {
+  body {
+    padding-top: 7.21739130vh;
+  }
+
+  /* navbar.ejs */
+  .head-nav .container {
+    height: 7.21739130vh;
+    padding: 0 1rem;
+  }
+
+  .site-logo {
+    height: 1.4375rem;
+    width: 6.75rem;
+  }
+
+  .nav-add {
+    width: 10rem;
+    height: 2.1325rem;
+    font-size: 0.9375rem;
+  }
+
+  /* hero-section */
+
+  .hero-section {
+    height: 61.82608695vh;
+  }
+
+  .hero-section .container {
+    padding: 2.375rem 0 0 0;
+  }
+
+  .hero-items {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    line-height: 3.0625rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .text-side {
+    width: 83.58974358%;
+    padding-left: 1rem;
+  }
+
+  .text-side p {
+    font-size: 1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .text-side a {
+    width: 14.5rem;
+    height: 2.875rem;
+    font-size: 1.125rem;
+    border-radius: 1.5625rem;
+  }
+
+  .image-side {
+    height: 53.02390998%;
+    margin: auto auto 0 auto;
+  }
+
+  /* sort nav section */
+
+  .sort-nav .container {
+    padding: 2.5rem 1rem 2.125rem 1rem;
+  }
+
+  h2 {
+    font-size: 1.625rem;
+  }
+
+  .book-list .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .empty-shelf-img {
+    height: 2.625rem;
+    width: 2.625rem;
+  }
+
+  .empty-shelf h3 {
+    font-size: 1.25rem;
+  }
+
+  .empty-shelf p {
+    font-size: 1rem;
+  }
+
+  .start-button {
+    font-size: 1.125rem;
+    margin-top: 1.6875rem;
+  }
+
+  /* add.ejs section */
+
+  .add-book, .view-book {
+    height: 92.7826087vh;
+  }
+
+  .header-add {
+    padding: 2.3125rem 1rem 0 1rem;
+  }
+
+  .header-add h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .add-search-form {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .add-search-input {
+    height: 3.1875rem;
+    width: 22.375rem;
+    font-size: 1rem;
+    padding-left: 1.625rem;
+  }
+
+  .add-search-btn {
+    font-size: 1.125rem;
+    height: 3.1875rem;
+    width: 8.5625rem;
+  }
+
+  .back-link {
+    font-size: 1rem;
+    gap: 0.5rem;
+  }
+
+  .back-link img {
+    width: 1.5625rem;
+    height: 1.5625rem;
+  }
+
+  .footer-back-only {
+    justify-content: center;
+  }
+
+  .add-book-details, .message {
+    margin-top: 3.0625rem;
+    padding-top: 2.125rem;
+    width: 91.79487179%;
+    text-align: center;
+  }
+
+  .message-head {
+    gap: 0.6875rem;
+    align-items: center;
+  }
+
+  .no-result-img {
+    height: 1.125rem;
+    width: 1.125rem;
+  }
+
+  .message-head h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+  }
+
+  .message p {
+    font-size: 1rem;
+  }
+
+  /* book-form ejs */
+
+  .add-book-details {
+    height: 46.5625rem;
+  }
+
+  .add-book-info {
+    grid-template-columns: max-content 5.77374301% auto;
+    grid-template-rows: repeat(6, max-content);
+  }
+
+  .add-book-info figure {
+    grid-area: 1 / 1 / 5 / 2;
+  }
+
+  .book-cover-preview {
+    max-width: 6.9375rem;
+    max-height: 10.4375rem;
+  }
+
+  .title-line {
+    grid-area: 2 / 3 / 3 / 4;
+  }
+
+  .title-input {
+    font-size: 1.25rem;
+  }
+
+  .author-line {
+    grid-area: 3 / 3 / 4 / 4;
+    font-size: 1rem;
+  }
+
+  .author-input {
+    font-size: 1rem;
+  }
+
+  .input-rating {
+    grid-area: 4 / 3 / 5 / 4;
+  }
+
+  .dateLabel, .ratingLabel {
+    font-size: 1rem;
+  }
+
+  .input-date {
+    grid-area: 5 / 1 / 6 / 4;
+    margin-top: 2.1875rem;
+  }
+
+  .input-review {
+    grid-area: 6 / 1 / 7 / 4;
+    height: 20.5rem;
+    margin-top: 1.625rem;
+  }
+
+  .form-add-btn {
+    font-size: 1rem;
+    width: 9.375rem;
+    height: 2.75rem;
+  }
+
+  .form-add-btn:hover {
+  background-color: var(--color3);
+}
+}
+

@@ -12,17 +12,18 @@
         </figure>
       <% } %>
 
-      <div class="add-book-user-verify">
-        <label for="title" class="sr-only">Book Title</label>
-        <input
-          id="title"
-          type="text"
-          name="title"
-          value="<%= bookData.title %>"
-          required
-          class="title-input"
-        />
-
+      
+        <div class="title-line">
+          <label for="title" class="sr-only">Book Title</label>
+          <input
+            id="title"
+            type="text"
+            name="title"
+            value="<%= bookData.title %>"
+            required
+            class="title-input"
+          />
+        </div>
         <div class="author-line">
           <label for="author">By</label>
           <input
@@ -35,7 +36,7 @@
           />
         </div>
 
-        <div class="input-date-rating">
+        
           <div class="input-date">
             <label for="datePicker" class="dateLabel">Date Read:</label>
             <div class="custom-date-wrapper">
@@ -45,7 +46,7 @@
           </div>
 
           <div class="input-rating">
-            <label for="ratingInput" class="ratingLabel sr-only">Your rating</label>
+            <label for="ratingInput" class="ratingLabel">Your rating</label>
             <noscript>
               <input type="number" name="rating" min="1" max="5" value="<%= bookData.rating || 1 %>" required />
             </noscript>
@@ -58,10 +59,8 @@
 
             <input type="hidden" name="rating" id="ratingInput" value="<%= bookData.rating || 1 %>" />
           </div>
-        </div>
 
         <textarea name="review" class="input-review" placeholder="Write a review..."><%= bookData.review || '' %></textarea>
-      </div>
     </div>
 
     <%- include("../partials/form-actions", { showSubmit: true, 

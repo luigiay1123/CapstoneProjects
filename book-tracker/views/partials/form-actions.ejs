@@ -1,4 +1,8 @@
-<footer class="add-form-actions">
+<% 
+  const hasActions = showSubmit || linkButton;
+%>
+
+<footer class="add-form-actions <%= hasActions ? 'footer-has-actons' : 'footer-back-only' %>">
   <a href="/books" class="back-link">
     <img src="/images/previous.svg"> Back to book list
   </a>
