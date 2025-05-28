@@ -15,14 +15,15 @@
       
         <div class="title-line">
           <label for="title" class="sr-only">Book Title</label>
-          <input
+          <textarea
             id="title"
             type="text"
             name="title"
             value="<%= bookData.title %>"
             required
             class="title-input"
-          />
+            rows="1"
+          ><%= bookData.title %></textarea>
         </div>
         <div class="author-line">
           <label for="author">By</label>

@@ -116,6 +116,7 @@ router.get("/search", async (req, res) => {
       }
       // const key = Object.keys(response.data)[0];
       // bookData = response.data[key];
+      console.log(data);
       console.log(bookData);
     } else {
       const firstResult = response.data.docs[0];
