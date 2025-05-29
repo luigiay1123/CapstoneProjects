@@ -10,7 +10,7 @@
               <img src="<%= book.cover_url %>" alt="Book Cover for <%= book.title %>" class="view-cover-preview">
             </figure>
             <% } %>
-            <div class="view-book-info">
+          
               <h2><%= book.title %></h2>
               <p class="author-view">By <%= book.author %></p>
               <div class="rating-display">
@@ -33,7 +33,7 @@
                 <p>Review:</p>
                 <pre class="review-text"><%= book.review %></pre>
               </div>
-            </div>
+            
           </div>
           <% const editLink = `/books/${book.id}/edit`;
            const editLabel = '<img src="/images/editView.svg" alt="Edit Icon"> Edit Details';
